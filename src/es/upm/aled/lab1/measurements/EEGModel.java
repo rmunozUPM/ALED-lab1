@@ -129,11 +129,26 @@ public class EEGModel {
 	 * @param fileName Path to the OpenBCI file to be created.
 	 * @throws IOException Thrown if the file can't be written.
 	 */
-	public void saveFile(String fileName) throws IOException {
-		// TODO
+	
 		
+	
+	public void saveFile(String fileName) throws IOException {
+		
+		File f = new File(fileName);
+		FileInputStream fis = new FileInputStream(f);
+		FileOutputStream fiss= new FileOutputStream(f);
+		PrintStream fish = new PrintStream(f);
+		
+		
+		
+		for ( int i = 0;  i < measurements.size(); i ++) {
+		 
+			fish.println(i+ "," + measurements.get(i));
+		}
+		
+		fish.close();
 	}
-
+		
 	/**
 	 * Plots the data of the EEGModel using the classes in the es.upm.aled.lab1.gui
 	 * package. The max and min values of each channel area calculated so the window
@@ -246,10 +261,11 @@ public class EEGModel {
 	}
 
 	public static void main(String[] args) {
+	
+		
 		if (args.length > 0) {
 			EEGModel eeg = new EEGModel(args[0]);
 			eeg.plotData();
-			// TODO
 			
 		} else {
 			EEGModel eeg = new EEGModel();
